@@ -1,52 +1,538 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Movie & Series Wall</title>
-  <style>
-    body {
-      font-family: Arial;
-      background: #111;
-      color: white;
-      text-align: center;
-    }
-    h1 {
-      margin: 20px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 15px;
-      padding: 20px;
-    }
-    .card {
-      background: #222;
-      border-radius: 10px;
-      padding: 10px;
-    }
-    .card img {
-      width: 100%;
-      border-radius: 8px;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+<meta charset="UTF-8">
+<title>📺 My Series Wall</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* ===== BACKGROUND ===== */
+body {
+  min-height: 100vh;
+  background: url("https://i.pinimg.com/736x/36/d3/92/36d39247289fa60ad6c51a6d5b29f7cc.jpg") no-repeat center center fixed;
+  background-size: cover;
+  color: white;
+  position: relative;
+}
+
+/* Dark overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(10,10,20,0.7);
+  backdrop-filter: blur(3px);
+  z-index: -1;
+}
+
+/* Floating gradient shapes */
+.bg-shape {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #ff7a18, #ff416c);
+  filter: blur(120px);
+  opacity: 0.4;
+  animation: float 12s infinite alternate ease-in-out;
+}
+
+.bg1 { top: 10%; left: 5%; }
+.bg2 { bottom: 10%; right: 5%; animation-delay: 3s; }
+
+@keyframes float {
+  from { transform: translateY(0px); }
+  to { transform: translateY(-60px); }
+}
+
+/* ===== HEADER ===== */
+header {
+  text-align: center;
+  padding: 30px 15px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+}
+
+/* ===== GRID LAYOUT ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* PC = 7 cards */
+  gap: 20px;
+  padding: 20px 40px 60px;
+}
+
+/* Tablet */
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 15px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 400px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== CARD ===== */
+.card {
+  backdrop-filter: blur(18px);
+  background: rgba(255,255,255,0.12);
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  transition: 0.35s ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 0 25px rgba(255,255,255,0.4);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  background: rgba(0,0,0,0.3);
+}
+
+/* ===== INFO ===== */
+.info {
+  padding: 12px;
+  text-align: center;
+}
+
+.info h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+/* ===== FAVORITE TAG ===== */
+.tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+background: linear-gradient(90deg,rgba(29, 89, 50, 1) 34%, rgba(42, 107, 65, 1) 50%, rgba(30, 77, 69, 1) 100%);
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+/* ===== POETIC SECTION (isolated) ===== */
+.poetry-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(
+  135deg,
+  rgba(255,255,255,0.15),
+  rgba(255,255,255,0.05)
+);
+backdrop-filter: blur(18px);
+
+  padding: 50px 8%;
+  margin: 40px 20px;
+  border-radius: 20px;
+}
+
+.poetry-content h2 {
+  font-family: "Dancing Script", cursive;
+  font-size: 48px;
+  font-weight: 800;
+  color: white;
+  line-height: 1;
+}
+
+.poetry-content p {
+  font-family: "Dancing Script", cursive;
+  margin-top: 15px;
+  font-size: 17px;
+  color: white;
+  max-width: 400px;
+  line-height: 1.6;
+}
+
+.poetry-visual {
+  position: relative;
+  width: 260px;
+  height: 260px;
+}
+
+.poetry-circle {
+  width: 200px;
+  height: 200px;
+  background: url("https://images.unsplash.com/photo-1502134249126-9f3755a50d78?auto=format&fit=crop&w=600&q=80") center/cover;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: grayscale(100%);
+}
+
+.poetry-visual img {
+  width: 140px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  filter: grayscale(100%);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .poetry-block {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .poetry-visual {
+    margin-top: 30px;
+  }
+
+  .poetry-content h2 {
+    font-size: 36px;
+  }
+}
+  
+  .glass-header {
+  margin: 30px auto;
+  padding: 25px 40px;
+  max-width: 700px;
+  text-align: center;
+
+  /* Glassmorphism */
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+/* Font styling */
+.glass-header h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.glass-header p {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 20px;
+  opacity: 0.7;
+}
+</style>
 </head>
+
 <body>
 
-<h1>🎬 My Movie & Series Wall</h1>
+<div class="bg-shape bg1"></div>
+<div class="bg-shape bg2"></div>
+
+<header class="glass-header">
+  <h1>My Series Wall</h1>
+  <p>A visual collection of what I’ve watched</p>
+</header>
+
 
 <div class="grid">
 
+  <!-- COPY THIS BLOCK FOR NEW ENTRY -->
   <div class="card">
-    <img src="https://m.media-amazon.com/images/I/91kFYg4fX3L._AC_UF1000,1000_QL80_.jpg">
-    <p>Interstellar</p>
+    <span class="tag">💚 Favorite</span>
+    <img src="https://i.pinimg.com/1200x/5a/9d/2e/5a9d2e897d587941d610a05e6af4ba0f.jpg">
+    <div class="info">
+      <h3>Game Of Thrones</h3>
+      <p>Watched: 2020</p>
+    </div>
   </div>
 
   <div class="card">
-    <img src="https://m.media-amazon.com/images/I/81aA7hEEykL._AC_SY679_.jpg">
-    <p>Breaking Bad</p>
+    <img src="https://i.pinimg.com/736x/03/00/68/030068654a4573349d2bb71bc806a25b.jpg">
+    <div class="info">
+      <h3>Breaking Bad</h3>
+      <p>Watched: Feb 2026</p>
+    </div>
   </div>
+  
+    <div class="card">
+      <span class="tag">💚 Favorite</span>
+    <img src="https://i.pinimg.com/736x/26/31/d8/2631d8fcdca20c412e66a124079ca1df.jpg">
+    <div class="info">
+      <h3>Friends</h3>
+      <p>Watched: 2021</p>
+    </div>
+  </div>
+  
+    <div class="card">
+    <img src="https://i.pinimg.com/1200x/6a/45/09/6a4509a3120d4ee0396c634da8069679.jpg">
+    <div class="info">
+      <h3>The Walking Dead </h3>
+      <p>Watched: 2025</p>
+    </div>
+  </div>
+  
+      <div class="card">
+    <img src="https://i.pinimg.com/736x/cd/32/d0/cd32d0ba1c0207c2ba0fdba8fc2c5f61.jpg">
+    <div class="info">
+      <h3>Better Call Saul </h3>
+      <p>Watched: 2025</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/1200x/da/cc/4b/dacc4b220fcf8c9ec56dc2f8e83f0bd4.jpg">
+    <div class="info">
+      <h3>True Detective </h3>
+      <p>Watched: 2025</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/1200x/ea/ae/95/eaae95795b39a252e7a1b2c684d6b38d.jpg">
+    <div class="info">
+      <h3>Prison Break </h3>
+      <p>Watched: 2025</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/736x/11/99/e7/1199e7af4428e98189efd90b454923f5.jpg">
+    <div class="info">
+      <h3>Money Heist </h3>
+      <p>Watched: 2021</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/736x/b0/96/b1/b096b14183aaa7cf7b5180531b3271de.jpg">
+    <div class="info">
+      <h3>Stranger Things </h3>
+      <p>Watched: 2025</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/1200x/b7/b2/e1/b7b2e127405c12cd9b8c3adbdfc54588.jpg">
+    <div class="info">
+      <h3>Hannibal </h3>
+      <p>Watched: 2025</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/1200x/e8/2f/82/e82f828f60f7d210d7c8574595c771e9.jpg">
+    <div class="info">
+      <h3>The Walking Dead </h3>
+      <p>Watched: 2022</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/736x/ea/fa/97/eafa975a4545a02a57d3bc2666c8f9e9.jpg">
+    <div class="info">
+      <h3>From </h3>
+      <p>Watched: 2025</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/736x/80/de/40/80de40b3feb23d893d29e918a8fb60a7.jpg">
+    <div class="info">
+      <h3>The Last Kingdom </h3>
+      <p>Watched: 2026</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/736x/a9/14/03/a91403092fb31fb969e76004e66507c6.jpg">
+    <div class="info">
+      <h3>Lost </h3>
+      <p>Watched: 2026</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/736x/e1/ce/89/e1ce8903d2f9603cf8480fe7fb4b8a0f.jpg">
+    <div class="info">
+      <h3>How I Met Your Mother </h3>
+      <p>Watched: 2022</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/736x/ab/f0/8b/abf08bf0b0e340773f9b732e31c68585.jpg">
+    <div class="info">
+      <h3>Vikings </h3>
+      <p>Watched: 2023</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/736x/e4/6a/57/e46a5791f5dfbf78ba6a5c0e56dc497e.jpg">
+    <div class="info">
+      <h3>The Boys </h3>
+      <p>Watched: 2024</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/1200x/41/e3/9c/41e39c12d5af705c7cbeaa430ea0eca0.jpg">
+    <div class="info">
+      <h3>The Witcher </h3>
+      <p>Watched: 2022</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/736x/69/77/8e/69778ebf35cd22018c872a088b34b682.jpg">
+    <div class="info">
+      <h3>House of the Dragon </h3>
+      <p>Watched: 2024</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/736x/c1/e2/c8/c1e2c851b52cf081b2547b1ffb4f6398.jpg">
+    <div class="info">
+      <h3>Narcos </h3>
+      <p>Watched: 2024</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/736x/95/69/d3/9569d30364e3ae40bf656328b0f87958.jpg">
+    <div class="info">
+      <h3>You </h3>
+      <p>Watched: 2025</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/736x/6b/89/5d/6b895d124eafbeb6d5c923d51cc211e7.jpg">
+    <div class="info">
+      <h3>13 Reasons Why </h3>
+      <p>Watched: 2021</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/1200x/8d/47/43/8d4743015ade65a41ff21edc9218382b.jpg">
+    <div class="info">
+      <h3>Ted </h3>
+      <p>Watched: 2026</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/736x/ed/3c/aa/ed3caab7697dda6c881e0ce0668e2d47.jpg">
+    <div class="info">
+      <h3>Euphoria </h3>
+      <p>Watched: 2022</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/736x/af/ee/2d/afee2d071498d459ad6d8b5f18670d98.jpg">
+    <div class="info">
+      <h3>Ozark </h3>
+      <p>Watched: 2025</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/736x/bb/80/c3/bb80c3990e6c31e14476f89599d0917c.jpg">
+    <div class="info">
+      <h3>Sex Education </h3>
+      <p>Watched: 2023</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/1200x/db/72/60/db72601c585b07af82281fe29c35e04c.jpg">
+    <div class="info">
+      <h3>The End Of The Fucking World </h3>
+      <p>Watched: 2022</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/736x/74/62/3d/74623d9e649a3fb3bc8fab7b18c6df45.jpg">
+    <div class="info">
+      <h3>Shadow And Bone </h3>
+      <p>Watched: 2021</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/1200x/f5/c7/f8/f5c7f8d5bbf98bbb7be1c2fe537a4a63.jpg">
+    <div class="info">
+      <h3>Beef </h3>
+      <p>Watched: 2025</p>
+    </div>
+  </div>
+  
+        <div class="card">
+    <img src="https://i.pinimg.com/736x/9d/c2/8e/9dc28e7757f60dd33c5c3813aade57e2.jpg">
+    <div class="info">
+      <h3>Adolescence  </h3>
+      <p>Watched: 2025</p>
+    </div>
+  </div>
+
+  
 
 </div>
+<!-- POETIC VISUAL SECTION -->
+<section class="poetry-block">
+  <div class="poetry-content">
+    <h2>Stories Unbound</h2>
+    <p>
+      A quiet collection of worlds,  
+      where light, motion, and memory become art.
+    </p>
+  </div>
+
+  <div class="poetry-visual">
+    <div class="poetry-circle"></div>
+    <img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=600&q=80" alt="visual art">
+  </div>
+</section>
+
+<footer>
+  🍿 My Personal Series Collection
+</footer>
 
 </body>
 </html>
-
