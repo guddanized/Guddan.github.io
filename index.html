@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
@@ -61,6 +61,33 @@ header {
 header h1 {
   font-size: 2.5rem;
 }
+
+.series-search {
+  text-align: center;
+  margin: 20px auto 30px;
+}
+
+.series-search input {
+  width: 300px;
+  max-width: 80%;
+  padding: 12px 18px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-family: "Montserrat", sans-serif;
+
+  /* Glass style */
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.series-search input::placeholder {
+  color: rgba(255,255,255,0.7);
+}
+
 
 /* ===== GRID LAYOUT ===== */
 .grid {
@@ -264,6 +291,11 @@ footer {
   <h1>My Series Wall</h1>
   <p>A visual collection of what I’ve watched</p>
 </header>
+
+<!-- SEARCH SECTION -->
+<div class="series-search">
+  <input type="text" id="searchInput" placeholder="Search series or show...">
+</div>
 
 
 <div class="grid">
@@ -541,6 +573,26 @@ footer {
 <footer>
   🍿 My Personal Series Collection
 </footer>
+
+<script>
+  const searchInput = document.getElementById("searchInput");
+  const cards = document.querySelectorAll(".card");
+
+  searchInput.addEventListener("keyup", function() {
+    const value = searchInput.value.toLowerCase();
+
+    cards.forEach(card => {
+      const title = card.querySelector("h3").textContent.toLowerCase();
+
+      if (title.includes(value)) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  });
+</script>
+
 
 </body>
 </html>
