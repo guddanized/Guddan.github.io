@@ -271,6 +271,33 @@ backdrop-filter: blur(18px);
   opacity: 0.85;
 }
 
+.series-counter {
+  margin: 40px auto;
+  padding: 25px 40px;
+  max-width: 400px;
+  text-align: center;
+
+  /* Glassmorphism style */
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.series-counter h2 {
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 10px;
+}
+
+#seriesCount {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ffcc70;
+  font-family: "Montserrat", sans-serif;
+}
+
 
 
 /* ===== FOOTER ===== */
@@ -570,6 +597,13 @@ footer {
   </div>
 </section>
 
+ <!-- TOTAL SERIES COUNTER -->
+<section class="series-counter">
+  <h2>Total Series Watched</h2>
+  <div id="seriesCount">0</div>
+</section>
+
+
 <footer>
   🍿 My Personal Series Collection
 </footer>
@@ -592,6 +626,12 @@ footer {
     });
   });
 </script>
+
+<script>
+  const totalSeries = document.querySelectorAll(".card").length;
+  document.getElementById("seriesCount").textContent = totalSeries;
+</script>
+
 
 
 </body>
